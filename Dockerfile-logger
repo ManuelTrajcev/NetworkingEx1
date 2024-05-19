@@ -1,0 +1,5 @@
+FROM eclipse-temurin
+COPY . ./usr/src/myapp
+WORKDIR ./usr/src/myapp
+RUN javac -d . ./src/shared/*.java
+CMD ["java", "shared.SharedResourceServer"]

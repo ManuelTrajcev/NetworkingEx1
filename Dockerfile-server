@@ -1,0 +1,6 @@
+FROM eclipse-temurin
+COPY . ./usr/src/myapp
+WORKDIR ./usr/src/myapp
+RUN javac -d . ./src/tcp/*.java
+EXPOSE 7000
+CMD ["java", "tcp.Server"]

@@ -1,0 +1,3 @@
+### Send POST request with body as parameters
+GET http://localhost:7000/?param1=test1&param2=test2
+Content-Type: application/x-www-form-urlencoded

@@ -1,0 +1,40 @@
+version: '3.8'
+services:
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile-server
+    ports:
+      - "7000:7000"
+    networks:
+      - "server-logger-private-network"
+      - "server-client-private-network"
+    environment:
+      - LOGGER_SERVERNAME=Server
+      - LOGGER_SERVERPORT=7000
+  client:
+    build:
+      context: .
+      dockerfile: Dockerfile-client
+    networks:
+      - "server-client-private-network"
+    environment:
+      - LOGGER_SERVERNAME=Server
+      - LOGGER_SERVERPORT=7000
+    deploy:
+      replicas: 15
+  logger:
+    build:
+      context: .
+      dockerfile: Dockerfile-logger
+    environment:
+      - SERVER_PORT=7050
+      - logFile=./log.txt
+      - counterFile=./counter.bin
+    networks:
+      - "server-logger-private-network"
+networks:
+  server-logger-private-network:
+    driver: bridge
+  server-client-private-network:
+    driver: bridge
